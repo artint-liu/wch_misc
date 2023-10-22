@@ -50,6 +50,13 @@ int main()
     GPIOB_ModeCfg(GPIO_Pin_0 | GPIO_Pin_19 | GPIO_Pin_7, GPIO_ModeOut_PP_5mA);
 
     GPIOB_ModeCfg(GPIO_Pin_17, GPIO_ModeIN_Floating);
+    PWR_DCDCCfg(ENABLE);
+    if(!GPIOB_ReadPortPin(GPIO_Pin_17))
+    {
+        GPIOB_ResetBits(GPIO_Pin_19);
+        GPIOB_ResetBits(GPIO_Pin_7);
+        bLightOn = FALSE;
+    }
 
     DelayMs(200);
 
@@ -69,7 +76,7 @@ int main()
                 GPIOB_SetBits(GPIO_Pin_7);
                 bLightOn = TRUE;
             }
-            DelayMs(200);
+            DelayMs(300);
         }
     }
 }
